@@ -3,9 +3,8 @@ import { Link,useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import {useDispatch} from 'react-redux';
 import { Form, Formik } from 'formik';
-import { TextField } from '../components/TextField';
-import { userSchema1 } from '../components/userValidation';
-
+import { loginSchema, userSchema1 } from '../components/userValidation';
+import {TextFields} from '../components/TextFields'
 import {authActions} from '../store';
 import Navbar from '../components/Navbar';
 
@@ -17,17 +16,24 @@ const Login = () => {
   const [details, setDetails] = useState([])
 
   const sendRequest = async(values) =>{
-    const res = await axios.post("http://localhost:5000/api/user/login",{
-      name:values.name,
-      nickname: values.nickname,
+    const exisitngShipper = {
       email:values.email,
       password: values.password,  
-    }).catch(err=>console.log(err))
+    }        
+    axios
+    .post("http://localhost:5000/api/user/login",exisitngShipper)
+    .then((res) => {
+      console.log(res.data);
+      localStorage.setItem("userID",res.data.user._id)
+      localStorage.setItem("userName",res.data.user.name)
+      localStorage.setItem("userImage",res.data.user.image)
+      localStorage.setItem("userEmail",res.data.user.email)
+      localStorage.setItem("role",res.data.user.role)
 
-    // const data = await res.data;
-    // return data;
     setDetails(res.data)
-  };
+  });
+
+}
 
   console.log(details)
 
@@ -56,14 +62,12 @@ const Login = () => {
                         password: '',
                        
                       }}
-                      validationSchema={userSchema1}
+                      validationSchema={loginSchema}
                       onSubmit={values => {
                         console.log(values);
                         sendRequest(values)
-                          .then((data)=>localStorage.setItem("items",JSON.stringify(data.user)))
                           .then(()=>dispatch(authActions.login()))
-                          .then(()=>navigate('/rules'))
-                          .then(data=>console.log(data))
+                          .then(()=>navigate('/'))
                           .then(()=>console.log("Login Successfull!"));
 
                       }}
@@ -71,8 +75,8 @@ const Login = () => {
                       {formik => (
                         <div>
                           <Form className='my-10 bg-white px-16 py-5 rounded-xl'>                         
-                            <TextField label="Email" name="email" type="email" />
-                            <TextField label="password" name="password" type="password" />
+                            <TextFields label="Email" name="email" type="email" />
+                            <TextFields label="password" name="password" type="password" />
                             <button type='submit'
                                 className="flex items-center justify-between w-full px-6 py-3 text-sm tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-500 rounded-md hover:bg-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50 my-5">
                                 <span>Login </span>
@@ -101,6 +105,7 @@ const Login = () => {
     </>
     
     )
-}
+    }
+
 
 export default Login

@@ -37,7 +37,7 @@ const CRDashBD = () => {
   return (
     <>
     <Navbar/>
-    <Sidenavbar role='CRD'/>
+    <Sidenavbar role='crd'/>
     <div className="min-h-screen w-screen flex overflow-auto text-black bg-gradient-to-b from-blue-500 to-gray-900">
         <div className='w-[98%]'>
             <div className='grid grid-cols-3 h-[100px] mt-[110px] ml-[220px] gap-4'>

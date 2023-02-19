@@ -27,7 +27,7 @@ import RateTile from '../components/RateTile';
 import AlertRate from '../components/AlertRate';
 
 var rates = [];
-const Booking = () => {
+const Rates = () => {
 
     const formArray = [1, 2, 3];
     const [formNo, setFormNo] = useState(formArray[0])
@@ -156,20 +156,18 @@ const Booking = () => {
     <Navbar/>
     <Sidenavbar role='ratesmanager'/>
     <div className="min-h-screen w-screen flex overflow-auto text-black bg-gradient-to-b from-blue-500 to-gray-900">
-      <div className='w-[98%] mt-[90px] ml-[250px] '>
+      <div className='w-[98%] mt-[80px] ml-[250px] '>
 
-        <div className=" w-[95%] flex flex-col p-4 bg-white shadow-md rounded-md my-2 items-center justify-center">
+        <div className=" w-[95%] flex flex-col p-2 bg-white shadow-md hover:shodow-lg rounded-2xl my-4 items-center justify-center">
           <div className='w-full flex'>
             <div className=' w-[100%] flex'>
               <div className="w-full flex items-center justify-center text-center gap-2">
-              <svg fill="none" stroke="currentColor" stroke-width="1.5" className='w-[35px] text-sky-900' viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M11.35 3.836c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75 2.25 2.25 0 00-.1-.664m-5.8 0A2.251 2.251 0 0113.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m8.9-4.414c.376.023.75.05 1.124.08 1.131.094 1.976 1.057 1.976 2.192V16.5A2.25 2.25 0 0118 18.75h-2.25m-7.5-10.5H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V18.75m-7.5-10.5h6.375c.621 0 1.125.504 1.125 1.125v9.375m-8.25-3l1.5 1.5 3-3.75"></path>
-              </svg>
-              <p className="text-xl sm:text-2xl text-sky-900 font-semibold leading-none">Booking Schedule</p>
-                {/* <button onClick={()=>setOne(!one)}
+                <img src={dollar} alt='' className='w-[80px]' />
+                <p className="text-xl sm:text-3xl text-sky-900 font-bold leading-none">Rate Schedule</p>
+                <button onClick={()=>setOne(!one)}
                       className="flex items-center justify-center mt-1 w-[100px] px-4 py-2 text-base tracking-wide capitalize transition-colors duration-300 transform bg-white border-2 rounded-md border-black hover:bg-orange-500 hover:border-none hover:text-white focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50 shadow-md">
                       <span> + New </span>
-                </button>  */}
+                </button> 
               </div>
               
             </div>
@@ -182,14 +180,14 @@ const Booking = () => {
         <div className='w-[95%] flex justify-center items-center'>
           <div className='w-full'>
             
-            <div className='w-full my-2 bg-white px-8 py-1 rounded-md flex'>
+            <div className='w-full my-2 bg-white px-8 py-2 rounded-md flex'>
 
               <div className='w-1/3 flex justify-center flex-col items-center'>
-                <h3 className='font-semibold text-xl p-2'>Route Details</h3>
+                <h3 className='font-semibold text-xl p-2'>Sailing Details</h3>
                 <img src={route} alt='' className='my-5' />
               </div>
 
-              <div className='w-2/3 flex justify-center flex-col items-center my-3'>
+              <div className='w-2/3 flex justify-center flex-col items-center'>
                 <div className='w-full grid grid-cols-2 gap-6'>
 
                 <div className='flex flex-col'>
@@ -216,8 +214,15 @@ const Booking = () => {
                         onChange={(e)=>setShMode(e.target.value)}
                       
                     >
-                    <MenuItem value={"Port to Port"}>Port to Port</MenuItem>
-                    <MenuItem value={"Port to Door"}>Port to Door</MenuItem>
+                    <MenuItem value={"CY / CY"}>CY / CY</MenuItem>
+                    <MenuItem value={"CY / CFS"}>CY / CFS</MenuItem>
+                    <MenuItem value={"CY / DOOR"}>CY / DOOR</MenuItem>
+                    <MenuItem value={"CY / RAMP"}>CY / RAMP</MenuItem>
+                    <MenuItem value={"CFS / CFS"}>CFS / CFS</MenuItem>
+                    {/* <MenuItem value={"Ex: works"}>Ex: works</MenuItem> */}
+                    <MenuItem value={"FCL / FCL"}>FCL / FCL</MenuItem>
+                    <MenuItem value={"FCL / LCL"}>FCL / LCL</MenuItem>
+                    <MenuItem value={"LCL / LCL"}>LCL / LCL</MenuItem>
 
                       </Select>
                     </FormControl>
@@ -226,26 +231,26 @@ const Booking = () => {
                 {shmode==='' &&  go===true  && <p className='text-[13px] text-red-600'>Add your delivery Mode!</p>}
                 </div>
 
-                {/* 
+
                 <div className='flex flex-col'>
 
                   <VesselInputs options={shippingLines} title="Shipping line"  setVesselData={setShipline}/>  
                   {shipline==='' && go===true &&  <p className='text-[13px] text-red-600 mb-1'>Add your shipping line!</p>}
-                </div> */}
+                </div>
 
 
-                {(shmode==="Port to Door") && <div className='flex flex-col'>
+                {((shmode==="CY / RAMP") || (shmode==="CY / DOOR")) && <div className='flex flex-col'>
 
                 <TextInput label={"Destination"} setValue={setDestination}/>
                 {destination==='' && go===true &&  <p className='text-[13px] text-red-600 mb-1'>Add your destination!</p>}
                 </div>}
 
 
-                {/* {(shmode==="Port to Door") &&<div className='flex flex-col'>
+                {shmode===("CY / DOOR") &&<div className='flex flex-col'>
 
                 <TextInput label={"Zip code"} setValue={setZipcode}/>
                 {zipcode==='' && go===true &&  <p className='text-[13px] text-red-600 mb-1'>Add your zip code!</p>}
-                </div>} */}
+                </div>}
 
               
 
@@ -254,59 +259,122 @@ const Booking = () => {
 
             </div>
 
-            <div className='w-full my-4 bg-white px-8 py-5 rounded-md flex mt-4'>
+            <div className='w-full my-4 bg-white px-8 py-5 rounded-md flex mt-8'>
 
               <div className='w-1/3 flex justify-center flex-col items-center'>
-                <h3 className='font-semibold text-xl p-2'>Cargo Details</h3>
-                <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" className='w-[60px]' xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 4.5v15m6-15v15m-10.875 0h15.75c.621 0 1.125-.504 1.125-1.125V5.625c0-.621-.504-1.125-1.125-1.125H4.125C3.504 4.5 3 5.004 3 5.625v12.75c0 .621.504 1.125 1.125 1.125z"></path>
-                </svg> 
+                <h3 className='font-semibold text-xl p-2'>Pricing Details</h3>
+                <img src={dollar} alt='' className='w-[180px]' />
               </div>
 
-              <div className='w-2/3 flex justify-center flex-col items-center mt-4'>
+              <div className='w-2/3 flex justify-center flex-col items-center p-3'>
                 <div className='w-full grid grid-cols-2 gap-6'>
 
                 <div className='flex flex-col'>
-                  <BasicDatePicker label={"Cargo Ready Date"} setTime={setValidDate} />
+                  <BasicDatePicker label={"Valid Date"} setTime={setValidDate} />
                 </div>
 
-                <TextInput label={"Commodity type"} setValue={setZipcode}/>
-                <TextInput label={"HS Code"} setValue={setZipcode}/>
-
-                <TextInput label={"Gross weight"} setValue={setZipcode}/>   
-                <TextInput label={"Net weight"} setValue={setZipcode}/>
-{/* 
-                <TextField
+                <div className='flex flex-col'>
+                  <TextField
                     id="outlined-multiline-static"
-                    label="Container type"
+                    label="Remarks"
                     multiline
                     value={multiVal}
                     defaultValue=""
                     onChange={e=>setMiltiVal(e.target.value)}
-                  /> */}
-                   {/* {rates.map((rat,index)=>( */}
-                  <div className='w-full flex justify-between items-center gap-x-20 gap-y-5 shadow-md rounded-md p-3'>
-                    <div className='flex justify-start items-center gap-3'>
-                      <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" className='w-6 h-6' xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 4.5v15m6-15v15m-10.875 0h15.75c.621 0 1.125-.504 1.125-1.125V5.625c0-.621-.504-1.125-1.125-1.125H4.125C3.504 4.5 3 5.004 3 5.625v12.75c0 .621.504 1.125 1.125 1.125z"></path>
-                      </svg>
-                      {/* <p>{rat.containerType}</p> */}
-                      <p>20 GP</p>
+                  />
+                { go===true && multiVal==="" && <p className='text-[13px] text-red-600 mb-1'>Add remarks here!</p>}
+                </div>
+                </div>
+                <div className='w-full border-2 my-3 mt-8'>
+                <Formik
+                  initialValues={initialConRates}
+                  validationSchema={userSchema7}
+                  onSubmit={async (values) => {
+                    console.log(values);
+                    rates = [...values]
+                    console.log(rates)
 
+                    // setCheckCargo("added");
+                    // setTab(!tab);
+                    // obj = {...initialValues, ...values}
+                    // console.log(obj)
+                    // newobj = {...obj, loading: origin, desty: destination}
+                    // fclCargo = [...newobj.Rates]        
+                    // console.log(fclCargo)
+
+                  }}
+                >
+
+                {({ values }) => (
+                  <Form>
+                  <FieldArray name="Rates">
+                    {({remove, push}) => (
+                      <div className='divide-y divide-solid divide-gray-400'>
+                        {values.Rates?.length > 0 &&
+                          values.Rates?.map((rate, index) => (
+                            <div className='flex w-full justify-center items-center gap-2 p-3' key={index}>
+                              <div className='w-[50%] p-3 text-sm flex flex-col gap-2  justify-center items-center'>
+                                  <label htmlFor={`Rates.${index}.containerType`}>Container type</label>
+                                  <Field as="select" 
+                                    name={`Rates.${index}.containerType`}
+                                    className='text-center p-2 w-full rounded-md border'>
+                                    <option value="20'GP">20'GP</option>
+                                    <option value="40'GP">40'GP</option>
+                                    <option value="40'HC">40'HC</option>
+                                    <option value="45'HC">45'HC</option>
+                                    <option value="20'RFG">20'RFG</option>
+                                    <option value="40'RFG">40'RFG</option>
+
+                                  </Field>
+                                  <ErrorMessage name={`Rates.${index}.containerType`} component="div" className='text-[12px] text-red-600 mb-1'/>                                                  
+                              </div>
+
+                              <div className='w-[50%] text-sm flex  justify-center items-center'>
+                                <div className='flex flex-col gap-2'>
+                                  <label htmlFor={`Rates.${index}.price`}>Price</label>
+                                    <Field
+                                      name={`Rates.${index}.price`}
+                                      placeholder=""
+                                      type="number"
+                                      className='text-center p-2 w-full rounded-md border'
+                                    />
+                                    <ErrorMessage name={`Rates.${index}.price`} component="div" className='text-[10px] text-red-600 mb-1'/>
+
+                                </div>
+
+                                <button onClick={() => remove(index)} disabled={values.Rates.length===1}>
+                                  <svg fill="none" stroke="currentColor" className='w-7 h-7 mb-3 bg-red-600 p-1 text-white cursor-pointer font-extrabold rounded-full ml-5 mt-5' stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"  aria-hidden="true">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path>
+                                  </svg>
+                                </button>
+
+                                <button onClick={() => push({containerType: '', price: ''})} >
+                                  <svg fill="none" stroke="currentColor" stroke-width="1.5" className='w-7 h-7 mb-3 bg-green-600 p-1 text-white cursor-pointer font-extrabold rounded-full ml-2 mt-5' viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m6-6H6"></path>
+                                  </svg> 
+                                </button>
+                            
+                              </div>  
+
+                            </div>
+                          ))}
+                      </div>
+                    )}
+                  </FieldArray>
+
+                  <div className="w-full flex justify-center items-center">
+                    <div className="w-[150px] mt-5 bg-orange-500 py-2.5 rounded-md mb-3 text-white font-bold flex justify-center items-center ml-3">
+                    <button type="submit"> + Add</button>
 
                     </div>
-                
-                    {/* <p>$ {rat.rate}</p> */}
-                    <p>1</p>
-
-
                   </div>
-              {/* ))} */}
-              </div>
+                    </Form>
+                )}
+                </Formik>
                 </div>
-               
 
-               
+              
+              </div>
 
             </div>
 
@@ -332,7 +400,7 @@ const Booking = () => {
         :
 
         <>
-          <div className=" w-[95%] flex flex-col p-3 bg-white shadow-md hover:shodow-lg rounded-2xl my-4 items-center justify-center">
+          <div className=" w-[95%] flex flex-col p-2 bg-white shadow-md hover:shodow-lg rounded-2xl my-2 items-center justify-center">
             <div className='w-full flex justify-between items-center'>
 
               <div className='w-full flex'>
@@ -417,6 +485,6 @@ const Booking = () => {
   )
 }
 
-export default Booking
+export default Rates
 
 

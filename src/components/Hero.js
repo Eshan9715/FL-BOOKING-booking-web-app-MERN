@@ -15,7 +15,7 @@ const Hero = () => {
 
                     <div className='flex flex-col md:flex-row'>
                         <Link to='/register' className='text-gray-800 hover:text-gray-400 duration-500 font-Monserrat '><Button name='New to here' color={'orange-500'} hoverColor={'white'} textColor={'white'} hoverTextColor={'black'}></Button></Link>
-                        <Link to='/booking' className='text-gray-800 hover:text-gray-400 duration-500 font-Monserrat '><Button name='Start Bookings' color={'white'} hoverColor={'orange-500'} textColor={'black'} hoverTextColor={'white'} ></Button></Link>
+                        <Link to='/booking' className='text-gray-800 hover:text-gray-400 duration-500 font-Monserrat '><Button name='Check Quatoes' color={'white'} hoverColor={'orange-500'} textColor={'black'} hoverTextColor={'white'} ></Button></Link>
 
                     </div>
                 

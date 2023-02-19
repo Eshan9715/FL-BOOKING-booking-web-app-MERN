@@ -45,7 +45,7 @@ const AdmindashBD = () => {
   return (
     <>
     <Navbar/>
-    <Sidenavbar role='Top admin'/>
+    <Sidenavbar role='admin'/>
     <div className="min-h-screen w-screen flex overflow-auto text-black bg-gradient-to-b from-blue-500 to-gray-900">
         <div className='w-[98%]'>
             <div className='grid grid-cols-4 h-[100px] mt-[110px] ml-[220px] gap-4'>

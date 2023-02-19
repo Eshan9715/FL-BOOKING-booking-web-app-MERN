@@ -1,27 +1,26 @@
 import * as React from 'react';
-import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
-import { Box } from '@mui/material';
+import TextField from '@mui/material/TextField';
+import Stack from '@mui/material/Stack';
+import { ports } from '../Data';
+import { Box } from '@mui/system';
 import anchor from '../assets/anchor.png'
 
-const AutoText = ({options, title, setPortData}) =>{
-  // const [inputValue, setInputValue] = React.useState('');
-
+export const MultipleInputs = () => {
   return (
-    <Autocomplete
-    id="country-select-demo"
-    sx={{ width: '100%' }}
-    options={options}
-    onInputChange={(event, newInputValue) => {
-          setPortData(newInputValue);
-        }}
-    autoHighlight
-    getOptionLabel={(option) => option.port || ""}
-    renderOption={(props, option) => (
-      <Box component="li" sx={{ '& > img': { mr: 2, flexShrink: 0 } }} {...props}>
+    <Stack spacing={3} sx={{ width: '100%' }}>
+      <Autocomplete
+        multiple
+        id="tags-outlined"
+        options={ports}
+        getOptionLabel={(option) => option.port || ""}
+        defaultValue={[]}
+        filterSelectedOptions
+        renderOption={(props, option) => (
+            <Box component="li" sx={{ '& > img': { mr: 2, flexShrink: 0 } }} {...props}>
                 <img
                 loading="lazy"
-                width="25"
+                width="30"
                 src={anchor}
                 alt=""
                 />
@@ -47,23 +46,15 @@ const AutoText = ({options, title, setPortData}) =>{
             
                 
             </Box>
-    )}
-    renderInput={(params) => (
-      <TextField
-        {...params}
-        label={title}
-        inputProps={{
-          ...params.inputProps,
-          // autoComplete: 'new-password', 
-          // disable autocomplete and autofill
-        }}
-        
-      />
-    )}
-  />
+        )}
+        renderInput={(params) => (
+          <TextField
+            {...params}
+            label="Transhipments (Optional)"
+            placeholder="Transhipments"
+          />
+        )}
+        />
+    </Stack>
   );
 }
-
-
-
-export default AutoText

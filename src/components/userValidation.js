@@ -8,6 +8,13 @@ import * as yup from "yup";
 
  })
 
+ export const loginSchema = yup.object().shape({
+   email: yup.string().email().matches( /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i, "Valid email is required!").required('Please Enter your email'),
+   password: yup.string().min(6,'Too Short!').max(10,'Too Long!').required('Please Enter your password'),
+
+
+})
+
  export const userSchema2 = yup.object().shape({
    email: yup.string().email().matches( /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i, "Valid email is required!").required('Please Enter your email'),
    password: yup.string().min(6,'Too Short!').max(10,'Too Long!').required('Please Enter your password'),
@@ -32,3 +39,34 @@ export const userSchema5 = yup.object().shape({
 
 })
 
+export const userSchema6 = yup.object().shape({
+   Packages: yup.array().of(
+      yup.object().shape({
+         PKGStype:  yup.string().required("Package type required"),
+         PKGScount:  yup.string().required("Package total required"),
+         PKGSvolume:  yup.string().required("Packages volume required"),
+         PKGSGweight: yup.string().required("Packages Gross weight required"),
+         PKGSNweight: yup.string().required("Packages Net weight required"),
+
+      }))
+})
+
+export const userSchema7 = yup.object().shape({
+   Rates: yup.array().of(
+      yup.object().shape({
+        containerType: yup.string().required("ContainerType required"),
+        price: yup.string()
+          .required("Container price required")
+      }))
+
+})
+
+// export const userSchema7 = yup.object().shape({
+//    PKGtype:  yup.string().required("Package type required"),
+//    PKGcount:  yup.string().required("Package total required"),
+//    PKGlength:  yup.string().required("Package length required"),
+//    PKGheight:  yup.string().required("Packages height required"),
+//    PKGwidth: yup.string().required("Packages width required"),
+//    PKGweight: yup.string().required("Packages weight required"),
+
+// })

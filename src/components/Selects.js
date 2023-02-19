@@ -1,7 +1,7 @@
 import React from 'react'
 import { ErrorMessage, useField } from 'formik'
 
-const Select = ({label,options, ...props}) => {
+const Selects = ({label,options, ...props}) => {
   const [field, meta] = useField(props);
   return (
     <div className='my-5'>
@@ -23,4 +23,4 @@ const Select = ({label,options, ...props}) => {
   )
 }
 
-export default Select
+export default Selects

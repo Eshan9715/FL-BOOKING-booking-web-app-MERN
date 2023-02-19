@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import Button from './button';
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom';
 import fri from '../assets/fri.png'
 import {useDispatch, useSelector} from 'react-redux';
 import { authActions } from '../store';
-// import user from '../assets/user.png'
+import user from '../assets/user.png'
 
 const Navbar = () => {
   const isLoggedIn = useSelector((state)=> state.isLoggedIn);
@@ -12,6 +12,7 @@ const Navbar = () => {
   const [name, setName] = useState('');
   const [pic, setPic] = useState('');
   const [mail, setMail] = useState('');
+  const navigate = useNavigate();
 
   const [show, setShow] = useState(false)
 
@@ -25,6 +26,12 @@ const Navbar = () => {
   const handleAuth = ()=>{
     dispatch(authActions.logout());
     localStorage.clear();
+    navigate("/login")
+
+  }
+
+  const handleDashBoard = () =>{
+    navigate("/dashboard")
   }
 
   const showWindow = ()=>{
@@ -47,7 +54,7 @@ const Navbar = () => {
         <div className='font-bold text-xl cursor-pointer flex items-center font-Monserrat 
         text-black'>
           <div className='w-8 md:w-12 lg:w-16'>
-            <img src={fri} alt=''/>
+            <img src={fri} alt=''className='rounded-full'/>
           </div>
           FLI-BOOKING
         </div>
@@ -70,9 +77,9 @@ const Navbar = () => {
               isLoggedIn && 
               <>
                 <div className='bg-white flex justify-center items-center gap-3 border-2 text-center font-Monserrat font-bold py-2 px-6 rounded md:ml-8 hover:bg-orange-400 
-                duration-500 w-[250px] mt-5 md:w-[150px] md:mt-2'> 
-                <img src={pic} alt='' className='w-8 h-8'/>
-                <span>{name.split(" ")[0]}</span>
+                duration-500 w-[250px] mt-5 md:w-[200px] md:mt-2'> 
+                <img src={pic} alt='' className='w-10 h-10 rounded-full'/>
+                <span>{name && name.split(" ")[0]}</span>
                 <button onClick={showWindow}><svg fill="none" stroke="currentColor" stroke-width="1.5" className='w-4 h-4 mt-1 font-bold cursor-pointer' viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                           <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5"></path>
                         </svg>
@@ -85,10 +92,12 @@ const Navbar = () => {
                   </div>
                   <ul class="py-2" aria-labelledby="user-menu-button">
                     <li>
-                      <a href="#" class="block px-4 py-2 text-sm hover:bg-orange-600 hover:text-white">Dashboard</a>
+                      <p className="block px-4 py-2 text-sm hover:bg-orange-600 hover:text-white cursor-pointer" onClick={handleDashBoard}>Dashboard</p>
                     </li>                            
                     <li>
-                    <Link to='/login' className='text-gray-800 hover:text-gray-400 duration-500 font-Monserrat '><Button name='logout' handleClick={handleAuth} >logout</Button></Link>
+                    <p className="block px-4 py-2 text-sm hover:bg-orange-600 hover:text-white cursor-pointer" onClick={handleAuth}>logout</p>
+
+                    {/* <Link to='/login' className='text-gray-800 hover:text-gray-400 duration-500 font-Monserrat '><Button name='logout' handleClick={handleAuth} >logout</Button></Link> */}
                     </li>
                   </ul>
                 </div>
