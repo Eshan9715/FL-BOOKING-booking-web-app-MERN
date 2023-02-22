@@ -66,7 +66,7 @@ const UserDashboard = () => {
                         </button> 
                     </div>
 
-                    <SliderQueries data={recentSearches}/>
+                    {/* <SliderQueries data={f} height={210}/> */}
 
                     <div className='w-full flex justify-between items-center bg-white rounded-lg p-4 mb-3'>
                         <div className='flex justify-center items-center gap-2'>

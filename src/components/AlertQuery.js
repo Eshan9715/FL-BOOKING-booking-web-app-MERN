@@ -1,8 +1,6 @@
 import React from 'react'
-import {useNavigate } from 'react-router-dom';
 
-const AlertQuery = ({origin, destination, type, cargos, show, close, rDate, title}) => {
-    const navigate = useNavigate();
+const AlertQuery = ({origin, destination, type, cargos, show, close, rDate, title, send, errorStaus}) => {
 
     if(!show){
         return null
@@ -76,14 +74,14 @@ const AlertQuery = ({origin, destination, type, cargos, show, close, rDate, titl
                 </div>
             </div>
 
+             <p className='text-[13px] text-red-600 mb-1 text-center'>{errorStaus}</p>                       
      
-            
             <div className='flex w-full justify-center gap-5 items-center mb-5'>
-                <button onClick={close}
+                <button onClick={close} 
                 className="flex text-base items-center mt-3 justify-center w-[120px]  px-8 py-2 font-semibold text-white capitalize bg-red-500 rounded-md hover:bg-white hover:text-black hover:border-2 border-black focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50">
                 <span>cancel</span>
                 </button> 
-                <button onClick={()=> navigate("/dashbord")}
+                <button onClick={send} 
                 className="flex text-base items-center mt-3 justify-center w-[120px]  px-8 py-2 font-semibold text-white capitalize bg-orange-500 rounded-md hover:bg-white hover:text-black hover:border-2 border-black focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50">
                 <span>ok</span>
                 </button> 

@@ -97,7 +97,7 @@ const Sidenavbar = ({role}) => {
    
 
   return (
-    <div className='flex min-h-screen w-20  md:w-48 fixed bg-slate-200 justify-center items-center z-40'>
+    <div className='flex min-h-screen w-20  md:w-56 fixed bg-slate-200 justify-center items-center z-40'>
         <div className='flex flex-col h-[80%] w-full justify-center items-center mt-16'>
               {tags.filter(e=>e.role.includes(role)).map((tag)=>(
             <NavLink to={tag.link} className={`hover:w-full hover:bg-white cursor-pointer w-4/5 xl:w-3/4`}  style={({ isActive }) =>

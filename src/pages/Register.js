@@ -17,7 +17,6 @@ import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import Success from '../components/Success';
 import ProgressBar from '../components/ProgressBar';
 
-var newOBJ = {};
 var keyImg = '';
 const Register = () => {
     const navigate = useNavigate();
@@ -96,18 +95,18 @@ const Register = () => {
           // comdoType: values.comdoType,
           // shipDate: values.shipDate
 
-        }        
+        }
           axios
-          .post("http://localhost:5000/api/user/signup",newUser)
+          .post("http://localhost:5000/api/auth/signup",newUser)
           .then((res) => {
             // console.log(res);
             console.log(res.data);
 
-            localStorage.setItem("userID",res.data.user._id)
-            localStorage.setItem("userName",res.data.user.name)
-            localStorage.setItem("userImage",res.data.user.image)
-            localStorage.setItem("userEmail",res.data.user.email)
-            localStorage.setItem("role",res.data.user.role)
+            localStorage.setItem("userID",(res.data.user._id || res.data.member._id))
+            localStorage.setItem("userName",(res.data.user.name || res.data.member.name))
+            localStorage.setItem("userImage",(res.data.user.image || res.data.member.image))
+            localStorage.setItem("userEmail",(res.data.user.email || res.data.member.email))
+            localStorage.setItem("role",(res.data.user.role || res.data.member.role))
 
           });     
       };

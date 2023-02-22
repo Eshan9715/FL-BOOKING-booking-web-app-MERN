@@ -16,7 +16,7 @@ const AutoText = ({options, title, setPortData}) =>{
           setPortData(newInputValue);
         }}
     autoHighlight
-    getOptionLabel={(option) => option.port || ""}
+    getOptionLabel={(option) => [option.portCode, option.port, option.code] || ""}
     renderOption={(props, option) => (
       <Box component="li" sx={{ '& > img': { mr: 2, flexShrink: 0 } }} {...props}>
                 <img

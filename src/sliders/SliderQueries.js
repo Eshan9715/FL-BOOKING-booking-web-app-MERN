@@ -14,13 +14,13 @@ import QueryTile from '../components/QueryTile';
 
 SwiperCore.use([Autoplay]);
 
-const SliderQueries = ({data}) => {
+const SliderQueries = ({data, height}) => {
 
   return (
     <>
      
       <div className='flex items-center justify-center flex-col'>
-        <Swiper className='w-full h-[210px] flex flex-col items-center justify-center my-1 gap-2 mb-5'
+        <Swiper className={`w-full h-[${height}px] flex flex-col items-center justify-center my-1 gap-2 mb-5`}
           // install Swiper modules
           modules={[Navigation, Pagination, Scrollbar, A11y]}
           direction="vertical"
@@ -33,18 +33,17 @@ const SliderQueries = ({data}) => {
           scrollbar={{ draggable: true }}
           
           >
-          {data.map(obj=>(
+          {data.map((obj,index)=>(
             <SwiperSlide key={obj.id}>
-              <QueryTile key={obj.id}
-                  OportCode={obj.originCode} 
-                  OportName={obj.originPort} 
-                  OCountry={obj.originCountry} 
+              <QueryTile key={index}
+                  OportName={obj.origin} 
+                  DportName={obj.destination} 
                   containerMode={obj.containerMode}
-                  cargos={obj.containers} 
-                  DportCode={obj.departCode} 
-                  DportName={obj.departPort} 
-                  DCountry={obj.departCountry}>
-              </QueryTile>
+                  cargos={obj.cargoFCL} 
+                  status={obj.status}
+                  rDate={obj.rDate}
+                  savedDate = {obj.createdAt}
+              />
             </SwiperSlide>
 
           ))}
