@@ -28,6 +28,32 @@
   color: #61dafb;
 }
 
+.paginationl {
+  display: flex;
+  list-style: none;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 5rem;
+  gap: 5px;
+  font-size: 1.2rem;
+}
+
+.paginationl .pagesl {
+  padding: 8px 15px;
+  cursor: pointer;
+  border-radius: 3px;
+  font-weight: 400;
+}
+
+.paginationl .pagesl:hover {
+  background-color: #1c0da1;
+  color: #edebeb;
+}
+
+.paginationl .active{
+   background-color: crimson;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

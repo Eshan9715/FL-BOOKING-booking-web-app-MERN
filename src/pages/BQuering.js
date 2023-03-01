@@ -157,12 +157,6 @@ const BQuering = () => {
       console.log("done")
       finalizedCargo = mode==="FCL"? [...fclCargo] : [...lclCargo]
       setShowAlert(true)
-      if(mode==="FCL"){
-        sendFCLRequest();
-      }else{
-        sendLCLRequest();
-      }
-
       // navigate('/')
     }else{
       setCheckCargo("failed")
@@ -238,6 +232,11 @@ const BQuering = () => {
 
   const handleSend = () => {
     if(error===''){
+      if(mode==="FCL"){
+        sendFCLRequest();
+      }else{
+        sendLCLRequest();
+      }
       navigate("/dashboard")
       // <PopupUI status='error' text='error' textError={error} />
     }else{
@@ -251,7 +250,7 @@ const BQuering = () => {
   return (
     <>
       <Navbar/>
-      <div className='w-screen h-screen overflow-auto bg-gradient-to-b from-blue-500 to-gray-900 justify-center items-center'>
+      <div className='w-screen min-h-screen overflow-auto bg-gradient-to-b from-blue-500 to-gray-900 justify-center items-center'>
         <div className='w-full flex'>
           <div className='w-[14%]'>
             <Sidenavbar role={role} />

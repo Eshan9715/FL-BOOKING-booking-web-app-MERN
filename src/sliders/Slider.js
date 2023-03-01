@@ -3,7 +3,7 @@ import { Navigation, Pagination, Scrollbar, A11y } from 'swiper';
 
 import { Swiper, SwiperSlide } from 'swiper/react';
 import SwiperCore, {Autoplay} from 'swiper';
-import SliderCol from '../components/SliderCol'
+import SliderRates from '../components/SliderRates'
 
 // Import Swiper styles
 import 'swiper/css';
@@ -65,24 +65,16 @@ const Slider = ({data , title, currency}) => {
           >
           {data.map(obj=>(
               <SwiperSlide key={obj.id}>
-                  <SliderCol
-                        port={obj.port}
-                        rate={obj.rate} 
-                        containerMode={obj.containerMode} 
-                        containerType= {obj.containerType}
-                        flag={obj.flag}
-                        validPeriod={obj.validPeriod}
-                        shipline={obj.shipline}
-                        vessel={obj.vessel}
-                        currency={currency}
-                        slogo={obj.slogo}
-                        />
-              
-              </SwiperSlide>
+                  <SliderRates
+                        discharge={obj.discharge}
+                        containers={obj.rates}
+                        shipmode={obj.deliveryMode}
+                        validPeriod={obj.validDate}
+                        shippingline={obj.shipline}
 
-          ))}
-          
-          
+                        />            
+              </SwiperSlide>
+          ))}         
         </Swiper>
       </div>
     </>

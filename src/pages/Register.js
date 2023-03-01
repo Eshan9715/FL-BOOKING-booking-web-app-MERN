@@ -214,12 +214,7 @@ const Register = () => {
                     <ProgressBar progressPercentage={progresspercent} condition={doneUpload}/>
                  
                     <input name="photo" id="fileInput" accept="image/*" className="hidden" type="file" onChange={handleChange} />
-                    {/* <div className='flex justify-center items-center'>
-                      <p className='mt-2 text-xs text-red-600 '>{!image? "Please add your profile picture": ""}</p>
-                    </div> */}
-
-
-                    {/* <p className='hidden'>{percent} % done</p> */}
+                  
 
                   </div>
 

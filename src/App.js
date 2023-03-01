@@ -19,6 +19,9 @@ import BookingSummery from './components/BookingSummery';
 import Popup from './components/PopupUI';
 import { BasicDateTimePicker } from './components/BasicDateTimePicker';
 import BLD from './pages/BLD';
+import Settings from './pages/Settings';
+import Clients from './pages/Clients';
+import Staff from './pages/Staff';
 
 
 function App() {
@@ -46,6 +49,12 @@ function App() {
 
         <Route path='/profile' element={<Profile />} />
         <Route path='/bookings' element={<BLD />} />
+        <Route path='/settings' element={<Settings />} />
+        <Route path='/clients' element={<Clients />} />
+        <Route path='/staff' element={<Staff />} />
+
+
+
 
 
 

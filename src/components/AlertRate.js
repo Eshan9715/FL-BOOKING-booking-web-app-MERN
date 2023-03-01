@@ -1,8 +1,6 @@
 import React from 'react'
-import {useNavigate } from 'react-router-dom';
 
-const AlertRate = ({origin, discharge, deliveryMode,close, shipline, zipcode, destination, vdate, remarks, rates, show, title}) => {
-    const navigate = useNavigate();
+const AlertRate = ({origin, discharge, type,close, shipline, zipcode, destination, vdate, remarks, rates, show, title, send}) => {
 
     if(!show){
         return null
@@ -11,6 +9,9 @@ const AlertRate = ({origin, discharge, deliveryMode,close, shipline, zipcode, de
     const arr = remarks.split(".");
     var len = remarks.split(".").length;
     arr.splice(len-1,1)
+    console.log(origin)
+    console.log(discharge)
+
   
 
   return (
@@ -56,7 +57,7 @@ const AlertRate = ({origin, discharge, deliveryMode,close, shipline, zipcode, de
                         <p>Delivery Mode :</p>
                     </div>
                     <div className='w-[50%] flex flex-col justify-center items-start'>
-                        <p>{deliveryMode}</p>
+                        <p>{type}</p>
                         <p>{destination}</p>
                         <p>{zipcode}</p>
 
@@ -73,7 +74,7 @@ const AlertRate = ({origin, discharge, deliveryMode,close, shipline, zipcode, de
                                 <div className='flex flex-col gap-2 w-full justify-center items-start' key={index}>
                                     <div className='flex justify-center items-start gap-4'>
                                         <p>{rat.containerType}</p>
-                                        <p>{rat.rate} Pkgs</p>
+                                        <p>$ {rat.price}</p>
                                        
                                     </div>
                                 
@@ -112,7 +113,7 @@ const AlertRate = ({origin, discharge, deliveryMode,close, shipline, zipcode, de
                 className="flex text-base items-center mt-3 justify-center w-[120px]  px-8 py-2 font-semibold text-white capitalize bg-red-500 rounded-md hover:bg-white hover:text-black hover:border-2 border-black focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50">
                 <span>cancel</span>
                 </button> 
-                <button onClick={()=> navigate("/dashbord")}
+                <button onClick={send}
                 className="flex text-base items-center mt-3 justify-center w-[120px]  px-8 py-2 font-semibold text-white capitalize bg-orange-500 rounded-md hover:bg-white hover:text-black hover:border-2 border-black focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50">
                 <span>ok</span>
                 </button> 

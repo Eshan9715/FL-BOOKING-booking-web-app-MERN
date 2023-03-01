@@ -1,12 +1,15 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Navbar from '../components/Navbar'
 import Sidenavbar from '../components/Sidenavbar'
 import Slider from '../sliders/Slider'
 import SliderAct from '../sliders/SliderActs'
 import {exports, recentAct, recentMails} from '../Data'
 import SliderMails from '../sliders/SliderMails'
+import axios from 'axios'
 
 const RatesDashBD = () => {
+    const [viewRates, setViewRates] = useState([])
+
     const gridParts = [
         {
             id:1,
@@ -32,15 +35,32 @@ const RatesDashBD = () => {
             <path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0M3.124 7.5A8.969 8.969 0 015.292 3m13.416 0a8.969 8.969 0 012.168 4.5"></path>
           </svg>
         },
-       
-]
+    ]
+
+   
+        
+        useEffect(() => {
+            // setID(localStorage.getItem("userID"))
+      
+            const getRates = ()=>{
+              axios
+              .get(`http://localhost:5000/api/rate`)
+              .then((res) => {
+                console.log(res.data);
+                setViewRates(res.data.rates)
+              })
+              .catch(err=> {
+                console.log(err);
+              })     
+            }
+            getRates();
+            
+        }, []);
+
   return (
-    <>
-    {/* <Navbar/>
-    <Sidenavbar role='ratesmanager'/> */}
-    <div className="min-h-screen w-screen flex overflow-auto text-black bg-gradient-to-b from-blue-500 to-gray-900">
-        <div className='w-[98%]'>
-            <div className='grid grid-cols-3 h-[100px] mt-[110px] ml-[220px] gap-4'>
+    <div className='w-full flex justify-center items-center'>
+        <div className='w-[90%]'>
+            <div className='w-full grid grid-cols-3 h-[100px] gap-4'>
             {gridParts.map((part)=>(
                 <div className='p-5 border-2 w-full flex justify-between items-center bg-white rounded-lg'>
                     {part.icon}
@@ -54,16 +74,16 @@ const RatesDashBD = () => {
 
             </div>  
 
-            <div className='ml-[220px] my-8'>
+            <div className='my-4'>
               <div className='flex justify-center items-center'>
               <div className='w-full'>
-                <Slider data={exports} title='Exports from Sri lanka' currency='USD'/>
+                <Slider data={viewRates} title='Exports from Sri lanka' currency='USD'/>
               </div>
               </div>
 
             </div>
 
-            <div className='grid grid-cols-2 h-[100px] ml-[220px] gap-4'>
+            <div className='grid grid-cols-2 h-[100px] gap-4'>
 
             <div className='flex flex-col my-5'>
                     <div className='w-full flex justify-between items-center bg-white rounded-lg p-4'>
@@ -87,18 +107,6 @@ const RatesDashBD = () => {
 
                     <SliderAct data={recentAct}/>   
                     
-                    {/* {recentAct.map(act=>(
-                        <div className="w-full flex px-3 py-2 bg-white shadow-md hover:shodow-lg rounded-lg mt-5" key={act.id}>
-                            <div className='w-full flex justify-between items-center'>
-                                <div className='flex justify-center flex-col items-start'>
-                                    <span>{act.act}</span>
-                                    <span className='text-sm text-slate-400'>{act.date}</span>
-                                </div>
-                                <span className={`px-2 py-1 rounded-lg text-sm w-[80px] text-center ${act.state === "Urgent" ? 'bg-red-500 w-full text-white':'bg-green-500 w-full text-white'}`}>{act.state}</span>
-                            </div>
-                        </div>
-                    ))}
-                   */}
                 
             </div>
 
@@ -122,31 +130,17 @@ const RatesDashBD = () => {
                         </button> 
                     </div>    
                     <SliderMails data={recentMails}/>
-                    
-                    {/* {recentMails.map(act=>(
-                        <div className="w-full flex px-3 py-2 bg-white shadow-md hover:shodow-lg rounded-lg mt-5" key={act.id}>
-                            <div className='w-full flex justify-between items-center'>
-                                <span className='text-sm text-gray-800'>{act.sender}</span>
-                                <span>{act.act}</span>
-                                <span className='text-sm text-slate-400'>{act.date}</span>
-
-                            </div>
-
-                        </div>
-                    ))} */}
                   
                 
             </div>
 
 
-            </div>
-
-        </div>
-       
-    </div>
+            </div>       
         
 
-    </>  )
+        </div>  
+    </div>
+    )
 }
 
 export default RatesDashBD

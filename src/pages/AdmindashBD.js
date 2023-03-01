@@ -1,12 +1,33 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Navbar from '../components/Navbar'
 import Sidenavbar from '../components/Sidenavbar'
 import Slider from '../sliders/Slider'
 import SliderAct from '../sliders/SliderActs'
 import {exports, recentAct, recentMails} from '../Data'
 import SliderMails from '../sliders/SliderMails'
+import axios from 'axios'
 
 const AdmindashBD = () => {
+    const [viewRates, setViewRates] = useState([])
+
+    useEffect(() => {
+        // setID(localStorage.getItem("userID"))
+  
+        const getRates = ()=>{
+          axios
+          .get(`http://localhost:5000/api/rate`)
+          .then((res) => {
+            console.log(res.data);
+            setViewRates(res.data.rates)
+          })
+          .catch(err=> {
+            console.log(err);
+          })     
+        }
+        getRates();
+        
+    }, []);
+
     const gridParts = [
         {
             id:1,
@@ -44,11 +65,11 @@ const AdmindashBD = () => {
 ]
   return (
     <>
-    <Navbar/>
-    <Sidenavbar role='admin'/>
-    <div className="min-h-screen w-screen flex overflow-auto text-black bg-gradient-to-b from-blue-500 to-gray-900">
-        <div className='w-[98%]'>
-            <div className='grid grid-cols-4 h-[100px] mt-[110px] ml-[220px] gap-4'>
+    {/* <Navbar/>
+    <Sidenavbar role='admin'/> */}
+    <div className='w-full flex justify-center items-center'>
+        <div className='w-[90%]'>
+            <div className='grid grid-cols-4 h-[100px] gap-4'>
             {gridParts.map((part)=>(
                 <div className='p-5 border-2 w-full flex justify-between items-center bg-white rounded-lg'>
                     {part.icon}
@@ -62,16 +83,16 @@ const AdmindashBD = () => {
 
             </div>  
 
-            <div className='ml-[220px] my-8'>
+            <div className=' my-4'>
               <div className='flex justify-center items-center'>
-              <div className='w-full'>
-                <Slider data={exports} title='Exports from Sri lanka' currency='USD'/>
-              </div>
+              {/* <div className='w-full'>
+                <Slider data={viewRates} title='Exports from Sri lanka' currency='USD'/>
+              </div> */}
               </div>
 
             </div>
 
-            <div className='grid grid-cols-2 h-[100px] ml-[220px] gap-4'>
+            <div className='grid grid-cols-2 h-[100px] gap-4'>
 
             <div className='flex flex-col my-5'>
                     <div className='w-full flex justify-between items-center bg-white rounded-lg p-4'>
@@ -149,10 +170,8 @@ const AdmindashBD = () => {
 
             </div>
 
-        </div>
-       
-    </div>
-        
+        </div>  
+    </div>      
 
     </>  )
 }
