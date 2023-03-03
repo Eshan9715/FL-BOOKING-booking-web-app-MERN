@@ -6,6 +6,7 @@ import SliderAct from '../sliders/SliderActs'
 import {exports, recentAct, recentMails} from '../Data'
 import SliderMails from '../sliders/SliderMails'
 import axios from 'axios'
+import SliderRates from '../components/SliderRates'
 
 const RatesDashBD = () => {
     const [viewRates, setViewRates] = useState([])
@@ -78,6 +79,7 @@ const RatesDashBD = () => {
               <div className='flex justify-center items-center'>
               <div className='w-full'>
                 <Slider data={viewRates} title='Exports from Sri lanka' currency='USD'/>
+                
               </div>
               </div>
 

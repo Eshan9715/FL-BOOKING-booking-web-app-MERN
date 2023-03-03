@@ -22,6 +22,7 @@ import BLD from './pages/BLD';
 import Settings from './pages/Settings';
 import Clients from './pages/Clients';
 import Staff from './pages/Staff';
+import Requests from './pages/Requests';
 
 
 function App() {
@@ -52,11 +53,7 @@ function App() {
         <Route path='/settings' element={<Settings />} />
         <Route path='/clients' element={<Clients />} />
         <Route path='/staff' element={<Staff />} />
-
-
-
-
-
+        <Route path='/req' element={<Requests />} />
 
 
       </Routes>

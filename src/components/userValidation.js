@@ -70,3 +70,15 @@ export const userSchema7 = yup.object().shape({
 //    PKGweight: yup.string().required("Packages weight required"),
 
 // })
+
+export const userSchema8 = yup.object().shape({
+   SRates: yup.array().of(
+      yup.object().shape({
+        sLine: yup.string().required("Shipping line required"),
+        containerType: yup.string().required("ContainerType required"),
+        rate: yup.string()
+          .required("Container price required"),
+        date: yup.date().required("Future date required"),
+      }))
+   
+})

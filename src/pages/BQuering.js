@@ -272,7 +272,7 @@ const BQuering = () => {
                         <span>view history </span>
                   </button>
 
-                  <div className=' bg-white backdrop-blur-sm border rounded-xl p-3 w-3/4 my-8'>
+                  <div className=' bg-white backdrop-blur-sm border rounded-xl p-3 w-4/5 my-8'>
 
                     <div className='w-full my-2 grid grid-cols-3 gap-x-10 gap-y-5 px-4 items-center'>
                         <div className='flex flex-col'>
@@ -579,7 +579,7 @@ const BQuering = () => {
                   </div>
                   
             </div>
-            <div className='w-4/5'>
+            <div className='w-[90%]'>
             {fqueryData?.map((obj,index)=>(
               <QueryTile key={index}
                   OportName={obj.origin} 

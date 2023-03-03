@@ -11,7 +11,7 @@ const SliderRates= ({discharge,containers,shipmode, validPeriod, shippingline}) 
             <div className='w-full flex justify-between items-center'>
               <div className='flex justify-center items-center gap-3'>
                  <div className='flex justify-center items-center gap-2'>
-                      <span>{DportKeys[0]},</span>
+                      <span>{DportKeys[0]}</span>
                       <span>{DportKeys[1]}</span>
                       <img src={`https://flagcdn.com/20x15/${DportKeys[2].toLowerCase()}.png`} alt="flag" />
                   </div>

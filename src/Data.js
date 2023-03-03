@@ -9,7 +9,7 @@ import ym from './assets/ym.png'
 import happa from './assets/happa.png'
 import pil from './assets/pil.png'
 import hmm from './assets/hmm.png'
-
+import user from './assets/user.png'
 
 
 // export const ports = [
@@ -21,6 +21,16 @@ import hmm from './assets/hmm.png'
 //         countryFlag: '',
 //     },
 // ]
+
+export const salesPersons =[
+    {name: 'Venura Silva', img: {user}}, 
+    {name: 'Chaminda Perera', img:  {user}}, 
+    {name: 'Achala Solomons', img:  {user}}, 
+    {name: 'Duminda Perera', img:  {user}}, 
+    {name: 'Tharaka Samanpriya', img:  {user}}, 
+    {name: 'Nelaka Perera', img:  {user}}, 
+    {name: 'Sanoli Peris', img:  {user}}, 
+]
 
 export const seaRates = [
     {
