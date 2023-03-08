@@ -136,6 +136,8 @@ const BQuering = () => {
   const [tab, setTab] = useState(false);
   const [checkCargo, setCheckCargo] = useState('');
   const [search, setSearch] = useState(false);
+  const [tabmode, setTabmode] = useState('pending')
+
 
   const handleChange = (event) => {
     setMode(event.target.value);
@@ -182,7 +184,9 @@ const BQuering = () => {
       })),
       user: currentUserID,
       receiver: userData.assignedTo,
-      rDate: rdate
+      rDate: rdate,
+      uName: userData.name, 
+      uCompany: userData.companyName
     }        
       axios
       .post("http://localhost:5000/api/lclquery/add",newLQuery)
@@ -212,7 +216,9 @@ const BQuering = () => {
 
       user: currentUserID,
       receiver: userData.assignedTo,
-      rDate: rdate
+      rDate: rdate,
+      uName: userData.name, 
+      uCompany: userData.companyName
 
     }        
       axios
@@ -257,11 +263,11 @@ const BQuering = () => {
           </div>
 
           <div className='w-[86%] min-h-screen p-4'>
-            <div className='w-full h-full flex flex-col justify-center items-center'>
+            <div className='w-full h-full flex flex-col justify-start items-center'>
 
             {one?
               <>
-                <p className='text-4xl text-center font-semibold text-white'>Get Your Instant Freight Quotes <span className='text-white text-3xl px-3 py-2 rounded-xl bg-red-600 font-semibold'>Online.</span></p>
+                <p className='text-4xl text-center mt-[150px] font-semibold text-white'>Get Your Instant Freight Quotes <span className='text-white text-3xl px-3 py-2 rounded-xl bg-red-600 font-semibold'>Online.</span></p>
 
                 <div className='mt-2 w-full flex flex-col justify-center items-center gap-8'>
                   <button onClick={()=>setOne(!one)}
@@ -566,11 +572,29 @@ const BQuering = () => {
               <>
               <div className=" w-full mt-[80px] flex flex-col p-2  my-4 items-center justify-center">
              
-                  <div className="w-full flex items-center justify-center text-center gap-2">
+                  <div className="w-[91%] flex items-center justify-between text-center gap-2">
                     {/* <img src={dollar} alt='' className='w-[80px]' /> */}
-                    <p className="text-xl sm:text-3xl text-white font-semibold leading-none">Queries Collection</p>
+                    {/* <p className="text-xl sm:text-3xl text-white font-semibold leading-none">Queries Collection</p> */}
+
+                    <div className="my-1 flex w-full justify-start">
+                        <ul className="flex flex-wrap -mb-px text-sm font-medium text-center" id="myTab" data-tabs-toggle="#myTabContent" role="tablist">
+                            
+                            <li className="mr-2 py-1.5" role="presentation">
+                                <button onClick={()=>setTabmode("pending")} className={`inline-block ${tabmode==="pending"? "bg-red-500": 'bg-gray-500'} px-4 py-3 text-white rounded-lg active`}id="dashboard-tab" data-tabs-target="#dashboard" type="button" role="tab" aria-controls="dashboard" aria-selected="false">Pending Queries</button>
+                            </li>
+                            
+                            <li className="mr-2 py-1.5" role="presentation">
+                                <button onClick={()=>setTabmode("confirmation")} className={`inline-block ${tabmode==="confirmation"? "bg-red-500": 'bg-gray-500'} px-4 py-3 text-white rounded-lg active`}id="settings-tab" data-tabs-target="#settings" type="button" role="tab" aria-controls="settings" aria-selected="false">Confirmation Queries</button>
+                            </li>
+                            <li className="mr-2 py-1.5" role="presentation">
+                                <button onClick={()=>setTabmode("completion")} className={`inline-block ${tabmode==="completion"? "bg-red-500": 'bg-gray-500'} px-4 py-3 text-white rounded-lg active`} id="profile-tab" data-tabs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Completed Queries</button>
+                            </li>
+                            
+                        </ul>
+
+                    </div>
                     <button onClick={()=>setOne(!one)}
-                          className="flex items-center justify-center mt-1 w-[150px] px-4 py-2 text-base tracking-wide capitalize transition-colors duration-300 transform bg-white border-2 rounded-md hover:bg-orange-500 hover:border-none hover:text-white focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50 shadow-md">
+                          className="flex items-center justify-center mt-1 w-[180px] px-4 py-2 text-base tracking-wide capitalize transition-colors duration-300 transform bg-white border-2 rounded-md hover:bg-orange-500 hover:border-none hover:text-white focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50 shadow-md">
                           <svg fill="none" stroke="currentColor" stroke-width="1.5" className='w-6 h-6 mr-2' viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                           </svg>
@@ -578,20 +602,23 @@ const BQuering = () => {
                     </button> 
                   </div>
                   
-            </div>
-            <div className='w-[90%]'>
-            {fqueryData?.map((obj,index)=>(
-              <QueryTile key={index}
-                  OportName={obj.origin} 
-                  DportName={obj.destination} 
-                  containerMode={obj.containerMode}
-                  cargos={obj.cargoFCL} 
-                  status={obj.status}
-                  rDate={obj.rDate}
-                  savedDate = {obj.createdAt}
-              />
-            ))}
-            </div>
+                </div>
+                <div className='w-[90%]'>
+                {fqueryData?.filter(e=> e.status===tabmode).map((obj,index)=>(
+                  <QueryTile key={index}
+                      OportName={obj.origin} 
+                      DportName={obj.destination} 
+                      containerMode={obj.containerMode}
+                      cargos={obj.cargoFCL} 
+                      status={obj.status}
+                      rDate={obj.rDate}
+                      savedDate = {obj.createdAt}
+                      id = {obj._id}
+                      rates = {obj.rates}
+                      remarks = {obj.remarks}
+                  />
+                ))}
+                </div>
 
               </>
             }

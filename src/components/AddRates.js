@@ -1,3 +1,4 @@
+import { TextField } from '@mui/material'
 import axios from 'axios'
 import { ErrorMessage, Field, FieldArray, Form, Formik } from 'formik'
 import moment from 'moment'
@@ -6,60 +7,21 @@ import { useNavigate } from 'react-router-dom'
 import { userSchema8 } from './userValidation'
 
 var rates=[];
-const AddRates = ({show,title,close}) => {
+
+const AddRates = ({show,title,close,id}) => {
+    //console.log(id)
+
     const navigate = useNavigate();
 
-    const [line, setLine] = useState('')
-    const [rate, setRate] = useState('')
+    // const [line, setLine] = useState('')
+    // const [rate, setRate] = useState('')
+    const [multiVal, setMultiVal] = useState('')
 
     const [error, setError] = useState('')
-    const [id, setId] = useState('');
-    const [tab, setTab] = useState(false);
+    const [rdetails, setrDetails] = useState([])
 
-
-    useEffect(() => {
-        setId(localStorage.getItem("userID"))
-    
-    }, []);
-    const send = ()=>{
-        if(line==='' || rate===''){
-            setError('Please fill the required details !!')
-        }else{
-            // sendRequest();
-            close();
-            // <Success title='New port' action='added' type='low' handleClick={()=>navigate("/settings")} />
-        }
-    }
-
-    // const sendRequest = async() =>{
-    //     const addPort = { 
-    //       PortName: pName, 
-    //       PortCode: pCode.toUpperCase(),
-    //       user: id
-
-    //     }        
-    //     axios
-    //     .post("http://localhost:5000/api/port/add",addPort)
-    //     .then((res) => {
-    //       console.log(res.data);
-    
-    //     setpDetails(res.data)
-    //   });
-    // }
-
-    // console.log(pdetails.port)
-// let vDate =  new Date();
-var today = new Date();
-// today.setDate(vDate.getDate() + 3)
-
-var dd = String(today.getDate()).padStart(2, '0');
-var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
-var yyyy = today.getFullYear();
-
-today = yyyy+'-'+dd+'-'+mm;
-
-    // const today = new Date()
-    // vDate.setDate(today.getDate() + 3)
+    //const [id, setId] = useState('');
+    //const [tab, setTab] = useState(false);
 
     const initialValues = {
         SRates: [
@@ -71,6 +33,57 @@ today = yyyy+'-'+dd+'-'+mm;
             },
           ],
     }
+
+
+    useEffect(() => {
+        //setId(localStorage.getItem("userID"))
+    
+    }, []);
+    const send = ()=>{      
+        sendRequest();
+        close();
+        navigate('/req')
+    // <Success title='New port' action='added' type='low' handleClick={()=>navigate("/settings")} />
+        
+    }
+
+    const sendRequest = async() =>{
+        const addRates = { 
+        rates: 
+        rates.map((item) => ({
+                shipLine: item.sLine,
+                validDate: item.date,
+                container: item.containerType,
+                rate: item.rate,
+            })), 
+        id: id,
+        remarks:multiVal,
+        status:'confirmation'
+        }        
+        axios
+        .put(`http://localhost:5000/api/fclquery/addRates/${id}`,addRates)
+        .then((res) => {
+          console.log(res.data);
+    
+        setrDetails(res.data)
+      });
+    }
+
+    // console.log(pdetails.port)
+    // let vDate =  new Date();
+    var today = new Date();
+    // today.setDate(vDate.getDate() + 3)
+
+    var dd = String(today.getDate()).padStart(2, '0');
+    var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    var yyyy = today.getFullYear();
+
+    today = yyyy+'-'+mm+'-'+dd;
+
+    // const today = new Date()
+    // vDate.setDate(today.getDate() + 3)
+
+   
     
 
     if(!show){
@@ -101,7 +114,7 @@ today = yyyy+'-'+dd+'-'+mm;
                     // values = {...values , values.date:moment(values.date).format('MMM Do YYYY') }
                     console.log(rates);
                     // setCheckCargo("added");
-                    setTab(!tab);
+                    // setTab(!tab);
                     // obj = {...initialValues, ...values}
                     // console.log(obj)
                     // newobj = {...obj, loading: origin, desty: destination}
@@ -212,11 +225,21 @@ today = yyyy+'-'+dd+'-'+mm;
                         </div>
                         )}
                     </FieldArray>
-                    <div className="w-full flex justify-center items-center">
-                    <div className="w-[100px] mt-5 h-8 bg-white border-2 hover:bg-orange-500 hover:text-white p-2 rounded-md mb-3 font-bold flex justify-center items-center ml-3">
-                    <button type="submit">Add</button>
+                    <div className="w-full flex justify-start items-center">
+                        <TextField
+                            id="outlined-multiline-static"
+                            label="Remarks"
+                            multiline
+                            value={multiVal}
+                            placeholder="Hint: Break the line by adding comma"
+                            className='w-3/4'
+                            size='small'
+                            onChange={e=>setMultiVal(e.target.value)}
+                        />
 
-                    </div>
+                        <button className='py-2 ml-2 items-center text-white bg-slate-600 px-8 hover:bg-orange-500 hover:text-white rounded-md' type="submit">Add</button>
+
+                        
                     </div>
                     </Form>
                 )}
